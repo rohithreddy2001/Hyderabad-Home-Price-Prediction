@@ -1,0 +1,325 @@
+.app {
+  max-width: 1200px;
+  margin: 0 auto 32px;   
+  padding: 12px;         
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 28px;
+}
+
+
+/* responsive: tablet */
+@media (max-width: 1000px) {
+  .app { grid-template-columns: 1fr 380px; padding: 16px; }
+}
+
+/* mobile: stack */
+@media (max-width: 700px) {
+  .app { grid-template-columns: 1fr; gap: 16px; padding: 12px; }
+}
+
+/* panels */
+.panel {
+  background: var(--panel-bg);
+  border-radius: var(--r-2);
+  border: 1px solid var(--border);
+  padding: 20px;
+  box-shadow: 0 1px 0 rgba(16,24,40,0.02);
+}
+
+.form-title {
+  font-size: var(--type-md);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.help {
+  font-size: var(--type-xs);
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+/* segmented property type */
+.segmented {
+  display:flex;
+  gap:8px;
+  margin: 10px 0 18px;
+}
+.seg-btn {
+  flex:1;
+  padding:12px;
+  border-radius:8px;
+  border:1px solid var(--border);
+  background:transparent;
+  text-align:center;
+  cursor:pointer;
+  font-size:var(--type-sm);
+}
+.seg-btn[aria-pressed="true"] {
+  background: linear-gradient(180deg, rgba(47,128,237,0.12), rgba(47,128,237,0.07));
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px rgba(47,128,237,0.06);
+}
+
+/* inputs */
+.field {
+  margin-bottom: 16px;
+}
+.label {
+  display:block;
+  font-size: var(--type-xs);
+  color:var(--muted);
+  margin-bottom:6px;
+}
+.input, .select-input {
+  width:100%;
+  padding: 10px 12px;
+  border-radius: var(--r-1);
+  border:1px solid var(--border);
+  background: #fff;
+  font-size: var(--type-sm);
+}
+.input:focus, .select-input:focus {
+  outline: 3px solid rgba(47,128,237,0.12);
+  border-color: var(--primary);
+}
+
+/* slider row */
+.slider-row {
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+.range {
+  flex:1;
+}
+.age-number {
+  width:64px;
+  text-align:center;
+}
+
+/* stepper */
+.stepper {
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+.stepper button {
+  width:36px;
+  height:36px;
+  border-radius:8px;
+  border:1px solid var(--border);
+  background:white;
+  cursor:pointer;
+}
+.stepper .count {
+  padding:8px 12px;
+  border-radius:8px;
+  min-width:140px;
+  text-align:center;
+  border:1px solid var(--border);
+}
+
+/* action button */
+.btn-primary {
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  background:var(--primary);
+  color:white;
+  font-weight:600;
+  border:none;
+  cursor:pointer;
+  margin-top:10px;
+}
+.btn-primary:disabled { opacity:0.6; cursor:not-allowed; }
+
+/* result panel */
+.result-price {
+  font-size:24px;
+  font-weight:700;
+}
+.result-sub {
+  font-size:var(--type-sm);
+  color:var(--muted);
+  margin-bottom:12px;
+}
+
+.feature-bars { margin-top:12px; }
+.feature {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin-bottom:8px;
+}
+.feature .bar {
+  height:10px;
+  flex:1;
+  background:var(--surface);
+  border-radius:6px;
+  overflow:hidden;
+}
+.feature .bar > i { display:block; height:100%; background: linear-gradient(90deg,var(--primary), #6ea8ff); }
+
+/* mini chart */
+.mini-chart {
+  width:100%;
+  height:72px;
+  margin-top:12px;
+  border-radius:8px;
+  background:linear-gradient(180deg,#fff, #fbfdff);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid var(--border);
+}
+
+.actions {
+  display:flex;
+  gap:12px;
+  margin-top:14px;
+}
+.action-btn {
+  flex:1;
+  padding:10px;
+  border-radius:8px;
+  border:1px solid var(--border);
+  background:white;
+  cursor:pointer;
+}
+
+
+/* ---------------------- */
+/* HEADER STYLES */
+/* ---------------------- */
+
+.site-header {
+  background: #ffffff;
+  border-bottom: 1px solid var(--border);
+  padding: 18px 0;
+  position: sticky;
+  top: 0;
+  z-index: 60;
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4px 24px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.brand-text .app-title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.brand-text .app-sub {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* Responsive tuning */
+@media (max-width: 600px) {
+  .header-inner {
+    padding: 6px 16px;
+  }
+  .brand-text .app-title {
+    font-size: 16px;
+  }
+}
+
+
+/* ---------- Bedrooms (Figma) styles ---------- */
+
+.bedrooms-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 8px;
+}
+
+/* Circular +/- buttons */
+.step-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;            /* slightly rounded as in figma */
+  border: 1px solid var(--border);
+  background: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 1px 0 rgba(16,24,40,0.02);
+  font-size: 18px;
+  color: #111827;
+}
+.step-btn:hover {
+  box-shadow: 0 6px 18px rgba(47,128,237,0.06);
+  transform: translateY(-1px);
+  border-color: rgba(47,128,237,0.12);
+}
+.step-btn:active { transform: translateY(0); }
+.step-btn:focus {
+  outline: 3px solid rgba(47,128,237,0.12);
+  border-color: var(--primary);
+}
+
+/* Center chip */
+.bed-chip {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  border-radius: 12px;
+  min-width: 220px;
+  border: 1px solid var(--border);
+  background: #fff;
+  font-size: var(--type-sm);
+  color: #111827;
+  box-shadow: 0 1px 0 rgba(16,24,40,0.02);
+}
+
+/* bed icon inside chip */
+.bed-chip .bed-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* text inside chip */
+.bed-chip .bed-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #374151;
+  font-size: 14px;
+}
+
+/* make chip keyboard-focusable */
+.bed-chip:focus {
+  outline: 3px solid rgba(47,128,237,0.12);
+  border-color: var(--primary);
+}
+
+/* small-screen tweak: stack the controls for narrow widths */
+@media (max-width: 420px) {
+  .bedrooms-row {
+    gap: 8px;
+  }
+  .bed-chip { min-width: 160px; padding: 10px 14px; }
+  .step-btn { width: 40px; height: 40px; }
+}
+
+/* small helper states */
+.error { color:var(--danger); font-size:var(--type-xs); margin-top:6px; }
