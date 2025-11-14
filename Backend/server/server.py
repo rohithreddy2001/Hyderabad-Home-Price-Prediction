@@ -1,58 +1,59 @@
 # server.py
+import os
+import logging
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import os
 import util
-import logging
 
-# Setup logging
+# Logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
-# Enable CORS for all routes and origins. For production, restrict origins to your frontend URL.
 CORS(app, resources={r"/*": {"origins": "*"}})
 
+# Try to load artifacts at startup and log any exceptions
+try:
+    logger.info("Loading saved artifacts...")
+    util.load_saved_artifacts()
+    logger.info("Artifacts loaded successfully.")
+except Exception as e:
+    logger.exception("Failed to load saved artifacts at startup: %s", e)
+    # continue running — endpoints will handle missing data gracefully
 
-@app.route('/health', methods=['GET'])
+@app.route("/health", methods=["GET"])
 def health():
     return jsonify({"status": "ok"})
-
 
 @app.route('/get_location_names', methods=['GET'])
 def get_location_names():
     try:
         locations = util.get_location_names()
-        # optionally ensure title-case if you want: [s.title() for s in locations]
+        if locations is None:
+            logger.warning("util.get_location_names() returned None — returning empty list instead.")
+            locations = []
         return jsonify({'locations': locations})
     except Exception as e:
-        logger.exception("Error in get_location_names")
-        return jsonify({'error': str(e)}), 500
-
+        logger.exception("Error in get_location_names: %s", e)
+        # return an empty list rather than null so frontend can handle gracefully
+        return jsonify({'locations': []}), 500
 
 @app.route('/get_property_types', methods=['GET'])
 def get_property_types():
     try:
-        property_types = util.get_property_types()
-        return jsonify({'property_types': property_types})
+        pts = util.get_property_types()
+        if pts is None:
+            logger.warning("util.get_property_types() returned None — returning empty list instead.")
+            pts = []
+        return jsonify({'property_types': pts})
     except Exception as e:
-        logger.exception("Error in get_property_types")
-        return jsonify({'error': str(e)}), 500
-
+        logger.exception("Error in get_property_types: %s", e)
+        return jsonify({'property_types': []}), 500
 
 @app.route('/predict_home_price', methods=['POST'])
 def predict_home_price():
-    """
-    Accept both application/x-www-form-urlencoded (frontend) and application/json POST bodies.
-    Expects keys:
-      - locality
-      - property_type
-      - area_in_sqft
-      - age_of_property
-      - bedrooms
-    """
     try:
-        # Support JSON body
+        # Accept JSON or form data
         if request.is_json:
             body = request.get_json()
             locality = body.get('locality')
@@ -61,32 +62,23 @@ def predict_home_price():
             age_of_property = int(body.get('age_of_property', 0))
             bedrooms = int(body.get('bedrooms', 0))
         else:
-            # form data (application/x-www-form-urlencoded)
             locality = request.form.get('locality')
             property_type = request.form.get('property_type')
             area_in_sqft = float(request.form.get('area_in_sqft', 0))
             age_of_property = int(request.form.get('age_of_property', 0))
             bedrooms = int(request.form.get('bedrooms', 0))
 
-        # Validate minimal inputs
+        # validate
         if not locality or not property_type:
             return jsonify({'error': 'locality and property_type are required'}), 400
 
-        estimated = util.get_estimated_price(locality, property_type, area_in_sqft, age_of_property, bedrooms)
-
-        return jsonify({'estimated_price': estimated})
+        est = util.get_estimated_price(locality, property_type, area_in_sqft, age_of_property, bedrooms)
+        return jsonify({'estimated_price': est})
     except Exception as e:
-        logger.exception("Error in predict_home_price")
+        logger.exception("Error in predict_home_price: %s", e)
         return jsonify({'error': str(e)}), 500
 
-
 if __name__ == "__main__":
-    # Load model or artifacts (your util function)
-    logger.info("Loading saved artifacts...")
-    util.load_saved_artifacts()
-    logger.info("Starting Python Flask Server For Home Price Prediction...")
-
-    # Use environment PORT when provided (Render / other hosts set PORT)
     port = int(os.environ.get("PORT", 5000))
-    # host 0.0.0.0 so external hosts can reach it (Render / Docker)
+    # for local debug use debug=True if you want
     app.run(host="0.0.0.0", port=port, debug=False)
