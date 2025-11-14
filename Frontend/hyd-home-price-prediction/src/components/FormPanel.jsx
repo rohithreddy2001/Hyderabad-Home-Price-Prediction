@@ -245,7 +245,7 @@ export default function FormPanel({ onResult }) {
       {err && <div className="error" role="alert">{err}</div>}
 
       <button className="btn-primary" type="submit" disabled={loading}>
-        {loading ? 'Predicting...' : 'Get Price Prediction'}
+        {loading ? 'Predicting...' : 'Get Estimated Price (₹)'}
       </button>
     </form>
   );
