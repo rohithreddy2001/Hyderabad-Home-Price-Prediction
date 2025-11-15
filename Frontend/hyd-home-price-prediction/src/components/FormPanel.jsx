@@ -20,8 +20,8 @@ export default function FormPanel({ onResult }) {
 
   const [locality, setLocality] = useState('');
   const [propertyType, setPropertyType] = useState('');
-  const [area, setArea] = useState(1200);
-  const [age, setAge] = useState(5);
+  const [area, setArea] = useState();
+  const [age, setAge] = useState(0);
   const [bedrooms, setBedrooms] = useState(2);
 
   const [loadingLists, setLoadingLists] = useState(true);
