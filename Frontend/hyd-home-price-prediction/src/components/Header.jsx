@@ -19,12 +19,12 @@ export default function Header() {
           {/* Logo Image */}
           <img
             src={charminar}
-            alt="HomePriceAI Logo"
+            alt="Home Price Predictor Logo"
             style={{
-              width: 44,
-              height: 44,
-              borderRadius: 12,
-              objectFit: "cover",
+              width: 60,
+              height: 60,
+              borderRadius: 0,
+              objectFit: "fill",
             }}
           />
 
