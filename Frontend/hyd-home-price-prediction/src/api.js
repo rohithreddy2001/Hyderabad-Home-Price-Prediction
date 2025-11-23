@@ -1,6 +1,6 @@
 // src/api.js
 // Simple API wrapper for the Flask backend
-const BASE = 'http://localhost:5000'; // change if your Flask server uses another host/port
+const BASE = 'https://hyderabad-home-price-prediction.onrender.com'; // change if your Flask server uses another host/port
 
 async function handleFetch(res) {
   if (!res.ok) {
