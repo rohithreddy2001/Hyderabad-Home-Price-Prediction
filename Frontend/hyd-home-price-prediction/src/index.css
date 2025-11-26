@@ -321,5 +321,19 @@
   .step-btn { width: 40px; height: 40px; }
 }
 
+/* dropdown skeleton */
+.skel {
+  height: 40px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #f2f4f7 25%, #e9eefb 50%, #f2f4f7 75%);
+  background-size: 200% 100%;
+  animation: sh 1.2s linear infinite;
+}
+@keyframes sh { to { background-position: -200% 0; } }
+.skel-inline { display:inline-block; width:120px; height:28px; border-radius:6px; }
+
+
 /* small helper states */
 .error { color:var(--danger); font-size:var(--type-xs); margin-top:6px; }
+
+
