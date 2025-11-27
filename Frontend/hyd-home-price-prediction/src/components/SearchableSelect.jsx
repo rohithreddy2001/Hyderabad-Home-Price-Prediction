@@ -1,17 +1,7 @@
-// src/components/SearchableSelect.jsx
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-/**
- * Accessible searchable combo box.
- * Props:
- * - id, label, options[], value, onChange
- * - placeholder
- * - leadingIcon: React node (displayed inside input on the left)
- * - optionIcons: map { optionValue: ReactNode } used inside dropdown list
- *
- * Note: icons should be aria-hidden (decorative) so screen readers read the label/value as text.
- */
+
 
 export default function SearchableSelect({
   id,

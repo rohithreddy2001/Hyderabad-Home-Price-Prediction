@@ -1,6 +1,5 @@
-// src/api.js
-// Uses REACT_APP_API_URL provided by Vercel. Falls back to '' for local dev.
-const BASE = (process.env.REACT_APP_API_URL || '').replace(/\/$/, ''); // no trailing slash
+
+const BASE = (process.env.REACT_APP_API_URL || '').replace(/\/$/, '');
 const LOCS_CACHE_KEY = 'hp_locations_v1';
 const PROPT_CACHE_KEY = 'hp_property_types_v1';
 // TTL in ms (e.g., 1 hour)
@@ -16,10 +15,7 @@ async function handleFetch(res) {
   return res.json();
 }
 
-/**
- * Helper: get cached value from localStorage if still valid
- * stored structure: { ts: timestamp, value: [...] }
- */
+
 function getCached(key) {
   try {
     const raw = localStorage.getItem(key);
@@ -45,23 +41,18 @@ function setCached(key, value) {
   }
 }
 
-/**
- * fetch helper that tries network, falls back to cached value if network fails
- * (but we rely on callers to use getCached(...) first for instant UI)
- */
+
 async function fetchJson(url) {
   const res = await fetch(url, { method: 'GET' });
   return handleFetch(res);
 }
 
 export async function fetchLocations({ forceRefresh = false } = {}) {
-  // 1) try immediate local cache for snappy UI
   if (!forceRefresh) {
     const cached = getCached(LOCS_CACHE_KEY);
     if (cached) return cached;
   }
 
-  // 2) fetch from network (use absolute URL)
   const url = `${BASE}/get_location_names`;
   try {
     const json = await fetchJson(url);
@@ -69,7 +60,6 @@ export async function fetchLocations({ forceRefresh = false } = {}) {
     setCached(LOCS_CACHE_KEY, list);
     return list;
   } catch (err) {
-    // network failed — try cached stale data as last resort
     const fallback = getCached(LOCS_CACHE_KEY);
     if (fallback) return fallback;
     throw err;
@@ -95,12 +85,7 @@ export async function fetchPropertyTypes({ forceRefresh = false } = {}) {
   }
 }
 
-/**
- * Fetch both lists in parallel. Returns { locations, property_types }
- * Uses local cache first (very fast) then triggers network updates if needed.
- *
- * options: { forceRefresh: boolean }
- */
+
 export async function fetchLists({ forceRefresh = false } = {}) {
   // Try to get cached immediately for both
   const cachedLocs = !forceRefresh ? getCached(LOCS_CACHE_KEY) : null;
@@ -124,9 +109,7 @@ export async function fetchLists({ forceRefresh = false } = {}) {
   return { locations, property_types };
 }
 
-/*
- predictPrice stays the same (POST form-encoded)
-*/
+
 export async function predictPrice(payload) {
   const params = new URLSearchParams();
   params.append('locality', payload.locality);

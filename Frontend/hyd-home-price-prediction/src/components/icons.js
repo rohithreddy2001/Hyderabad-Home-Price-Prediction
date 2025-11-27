@@ -1,7 +1,5 @@
-// src/components/icons.js
 import React from 'react';
 
-/* Decorative icons used in the form. They are aria-hidden by default. */
 
 export const IconPin = ({ size = 18 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden>

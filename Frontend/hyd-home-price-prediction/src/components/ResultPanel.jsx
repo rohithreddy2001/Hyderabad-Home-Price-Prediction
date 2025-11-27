@@ -1,4 +1,3 @@
-// src/components/ResultPanel.jsx
 import React from 'react';
 import IconSave from './IconSave';
 import IconDownload from './IconDownload';
@@ -14,12 +13,10 @@ function MiniChart({data=[]}) {
   );
 }
 
-// small helper to format the predicted price like earlier (Lakhs / Crores)
 function formatPrice(estimated) {
   if (estimated === null || estimated === undefined) return "-";
   if (estimated < 1) {
     const valueLakhs = estimated * 100;
-    // if whole number show no decimals
     const whole = Number(valueLakhs.toFixed(2));
     return (Number.isInteger(whole) ? whole.toFixed(0) : valueLakhs.toFixed(2)) + " Lakhs";
   }
@@ -39,7 +36,6 @@ export default function ResultPanel({ result, onSave, onDownload }) {
     );
   }
 
-  // result now includes inputs and predictions
   const {
     locality,
     property_type,
@@ -53,7 +49,6 @@ export default function ResultPanel({ result, onSave, onDownload }) {
     timeseries = []
   } = result;
 
-  // compact info rows for selected inputs
   const infoRows = [
     { label: 'Locality', value: locality || '-' },
     { label: 'Property Type', value: property_type || '-' },
@@ -62,7 +57,6 @@ export default function ResultPanel({ result, onSave, onDownload }) {
     { label: 'Bedrooms', value: bedrooms != null ? String(bedrooms) : '-' }
   ];
 
-  // build payload to send when saving/downloading (we pass the whole result object)
   const reportPayload = result;
 
   return (

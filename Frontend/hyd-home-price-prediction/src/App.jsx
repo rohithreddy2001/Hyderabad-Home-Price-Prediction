@@ -1,4 +1,3 @@
-// src/App.jsx
 import React, { useState } from "react";
 import Header from "./components/Header";
 import FormPanel from "./components/FormPanel";
@@ -8,7 +7,6 @@ import "./index.css";
 export default function App() {
   const [result, setResult] = useState(null);
 
-  // now accepts a report object (the full payload returned by FormPanel)
   function handleSave(report) {
     if (!report) return alert("Nothing to save yet");
     const reports = JSON.parse(localStorage.getItem("homeprice_reports") || "[]");
@@ -18,7 +16,6 @@ export default function App() {
     alert("Saved to local reports");
   }
 
-  // now accepts a report object and downloads it
   function handleDownload(report) {
     if (!report) return alert("Nothing to download yet");
     const payload = {
@@ -31,7 +28,6 @@ export default function App() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    // friendly filename using locality & timestamp (safe fallback)
     const nameSafe = (report.locality || "report").replace(/\s+/g, "_").toLowerCase();
     a.download = `homeprice_${nameSafe}_${Date.now()}.json`;
     a.click();

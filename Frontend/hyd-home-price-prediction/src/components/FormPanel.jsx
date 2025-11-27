@@ -1,4 +1,3 @@
-// src/components/FormPanel.jsx
 import React, { useEffect, useState } from 'react';
 import SearchableSelect from './SearchableSelect';
 import Spinner from './Spinner';
